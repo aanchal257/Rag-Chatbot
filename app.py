@@ -112,8 +112,6 @@ with st.sidebar:
 
     st.write("• How do I clean the drum?")
 
-    st.write("• What is Quick Wash?")
-
     st.write("• How do I use Child Lock?")
 
     st.write("• What is Eco Mode?")
