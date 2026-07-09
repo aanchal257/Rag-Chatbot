@@ -1,11 +1,16 @@
-import os
-import streamlit as st
+
 from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.document_loaders import UnstructuredHTMLLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
+
+import streamlit as st
+import os
+
+api_key = st.secrets["OPENAI_API_KEY"]
+os.environ["OPENAI_API_KEY"] = api_key
 
 # -------------------------
 # Load API Key
