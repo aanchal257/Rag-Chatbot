@@ -189,6 +189,8 @@ if question:
     with st.chat_message("user"):
         st.markdown(question)
 
+docs = retriever.invoke(question)
+
 with st.expander("📄 Retrieved Manual Sections"):
 
     for i, doc in enumerate(docs,1):
