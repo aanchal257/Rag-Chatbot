@@ -184,57 +184,39 @@ question = st.chat_input("💬 Ask your Samsung question...")
 if question:
 
     st.session_state.messages.append(
-        {"role":"user","content":question}
+        {"role": "user", "content": question}
     )
 
     with st.chat_message("user"):
         st.markdown(question)
 
+    # Create docs FIRST
     docs = retriever.invoke(question)
 
-with st.expander("📄 Retrieved Manual Sections"):
+    # THEN use docs
+    with st.expander("📄 Retrieved Manual Sections"):
+        for i, doc in enumerate(docs, 1):
+            st.markdown(f"### Section {i}")
+            st.write(doc.page_content[:400] + "...")
 
-    for i, doc in enumerate(docs,1):
-
-        st.markdown(f"### Section {i}")
-
-        st.write(doc.page_content[:400]+"...")
-
-    context = "\n\n".join(
-        doc.page_content for doc in docs
-    )
+    context = "\n\n".join(doc.page_content for doc in docs)
 
     prompt = f"""
-You are a Samsung Washing Machine expert.
+    You are a Samsung Washing Machine expert.
 
-Answer ONLY using the manual below.
+    Manual:
+    {context}
 
-Manual:
-{context}
-
-Question:
-{question}
-
-If the answer isn't available, say:
-"I couldn't find that information in the manual."
-"""
+    Question:
+    {question}
+    """
 
     response = llm.invoke(prompt).content
 
-with st.chat_message("assistant"):
-
-    st.markdown(
-        f"""
-<div class="answer-box">
-
-{response}
-
-</div>
-""",
-        unsafe_allow_html=True
-    )
+    with st.chat_message("assistant"):
+        st.markdown(response)
 
     st.session_state.messages.append(
-        {"role":"assistant","content":response}
+        {"role": "assistant", "content": response}
     )
 
