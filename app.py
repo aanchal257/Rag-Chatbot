@@ -95,7 +95,7 @@ col3.metric("💾 Database","ChromaDB")
 
 
 # -------------------------with st.sidebar:
-with sidebar:
+with st.sidebar:
     
     st.title("📘 Samsung Assistant")
 
