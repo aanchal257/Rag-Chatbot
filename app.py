@@ -178,6 +178,7 @@ for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
+
 question = st.chat_input("💬 Ask your Samsung question...")
 
 if question:
@@ -189,7 +190,7 @@ if question:
     with st.chat_message("user"):
         st.markdown(question)
 
-docs = retriever.invoke(question)
+    docs = retriever.invoke(question)
 
 with st.expander("📄 Retrieved Manual Sections"):
 
